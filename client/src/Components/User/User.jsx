@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 import { fakeData } from "../../../../server/fakeData"
 
 export default function User() {
+  console.log('test')
+
   const [givenName, setGivenName] = useState('')
   const [surName, setsurName] = useState('')
   const [profilePicture, setProfilePicture] = useState('')
