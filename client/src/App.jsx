@@ -15,7 +15,7 @@ export default function App() {
   const accessToken = useAuth(code, SERVER_ENDPOINT)
 
   return (
-    <Container style={{fontFamily: 'Impact, fantasy'}}>
+    <Container style={{fontFamily: 'Impact, fantasy', height: "100vh"}}>
       {localStorage.getItem("refreshToken") ? <User accessToken={accessToken}/> : <Login />}
     </Container>
   )
