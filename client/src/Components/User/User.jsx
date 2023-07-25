@@ -1,6 +1,6 @@
 import { Container } from 'reactstrap'
 import UserProfileComponent from './UserProfileComponent'
-import UserTopTracksComponent from './UserTopTracksComponent'
+import UserTopTracksComponent from '../Tracks/UserTopTracksComponent'
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -15,7 +15,7 @@ export default function User({accessToken, serverEndpoint}) {
   useEffect(() => {
     axios.get(`${serverEndpoint}/user/?access_token=${accessToken}`).then(data => {
       setDisplayName(data.data.displayName)
-      setProfilePicture(data.data.displayPictures.filter(pic => pic.width === 300)[0].url)
+      setProfilePicture(data.data.displayPicture)
       setUserId(data.data.userId)
     })
   }, [])
@@ -32,6 +32,11 @@ export default function User({accessToken, serverEndpoint}) {
           serverEndpoint={serverEndpoint}
           userId={userId}
         />
+        {/* <UserTopTracksComponent
+          accessToken={accessToken}
+          serverEndpoint={serverEndpoint}
+          userId={userId}
+        /> */}
       </Container>
     </Container>
   )

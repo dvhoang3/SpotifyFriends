@@ -70,7 +70,7 @@ app.get('/user', (req, res) => {
       userId: data.data.id,
       userUri: data.data.uri,
       displayName: data.data.display_name,
-      displayPictures: data.data.images
+      displayPicture: data.data.images.filter(pic => pic.width === 300)[0].url
     })
   }).catch(err => {
     res.sendStatus(400)
@@ -97,7 +97,8 @@ app.get('/top_tracks/:time_range', (req, res) => {
           trackUri: track.uri,
           trackName: track.name,
           trackArtist: track.artists[0].name,
-          trackAlbum: track.album.name
+          trackAlbum: track.album.name,
+          trackPicture: track.album.images.filter(i => i.width === 64)[0].url
         }
       })
     })
