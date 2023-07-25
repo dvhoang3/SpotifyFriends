@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <Container style={{fontFamily: 'Impact, fantasy', height: "100vh"}}>
-      {localStorage.getItem("refreshToken") ? <User accessToken={accessToken}/> : <Login />}
+      {localStorage.getItem("refreshToken") ? <User accessToken={accessToken} serverEndpoint={SERVER_ENDPOINT}/> : <Login />}
     </Container>
   )
 }

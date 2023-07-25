@@ -1,4 +1,4 @@
-export default function UserProfileComponent({ givenName, surName, profilePicture }) {
+export default function UserProfileComponent({ displayName, profilePicture }) {
   return (<>
     <img
       src={profilePicture}
@@ -7,7 +7,7 @@ export default function UserProfileComponent({ givenName, surName, profilePictur
       style={{borderRadius: "50%"}}
     />
     <div className="m-3" style={{fontSize: "2em"}}>
-      <span>{givenName}</span> <span>{surName}</span>
+      <span>{displayName}</span>
     </div>
   </>)
 }

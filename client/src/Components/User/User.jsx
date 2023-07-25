@@ -3,36 +3,34 @@ import UserProfileComponent from './UserProfileComponent'
 import UserTopTracksComponent from './UserTopTracksComponent'
 
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-import { fakeData } from "../../../../server/fakeData"
+export default function User({accessToken, serverEndpoint}) {
+  if (!accessToken) return
 
-export default function User() {
-  console.log('test')
-
-  const [givenName, setGivenName] = useState('')
-  const [surName, setsurName] = useState('')
+  const [userId, setUserId] = useState('')
+  const [displayName, setDisplayName] = useState('')
   const [profilePicture, setProfilePicture] = useState('')
-  const [topTracks, setTopTracks] = useState([])
 
   useEffect(() => {
-    const data = fakeData;
-
-    setGivenName(data.given_name)
-    setsurName(data.surname)
-    setProfilePicture(data.profile_picture)
-    setTopTracks(data.top_tracks)
+    axios.get(`${serverEndpoint}/user/?access_token=${accessToken}`).then(data => {
+      setDisplayName(data.data.displayName)
+      setProfilePicture(data.data.displayPictures.filter(pic => pic.width === 300)[0].url)
+      setUserId(data.data.userId)
+    })
   }, [])
 
   return (
     <Container className="mt-5 d-flex flex-column align-items-center">
       <UserProfileComponent
-        givenName={givenName}
-        surName={surName}
+        displayName={displayName}
         profilePicture={profilePicture}
       />
       <Container className="d-flex">
         <UserTopTracksComponent
-          tracks={topTracks}
+          accessToken={accessToken}
+          serverEndpoint={serverEndpoint}
+          userId={userId}
         />
       </Container>
     </Container>
