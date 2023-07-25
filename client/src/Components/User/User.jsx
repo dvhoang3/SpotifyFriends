@@ -23,12 +23,14 @@ export default function User({accessToken, serverEndpoint}) {
 
   return (
     <Container className="mt-3 mb-4 d-flex flex-column align-items-center">
-      <Container className="mb-2 d-flex flex-column justify-content-center align-items-center">
+      <Container className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3">
         <UserProfileComponent
           displayName={displayName}
           profilePicture={profilePicture}
+          userId={userId}
         />
       </Container>
+      <hr className="my-4 w-100" />
       <Container className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 gap-lg-5">
         <UserTopTracksComponent
           accessToken={accessToken}
