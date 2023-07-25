@@ -86,7 +86,7 @@ app.get('/top_tracks/:time_range', (req, res) => {
       Authorization: `Bearer ${access_token}`
     },
     params: {
-      limit: 10,
+      limit: 20,
       time_range: req.params.time_range
     }
   }).then(data => {
@@ -98,7 +98,35 @@ app.get('/top_tracks/:time_range', (req, res) => {
           trackName: track.name,
           trackArtist: track.artists[0].name,
           trackAlbum: track.album.name,
-          trackPicture: track.album.images.filter(i => i.width === 64)[0].url
+          trackPicture: track.album.images[track.album.images.length - 1].url
+        }
+      })
+    })
+  }).catch(err => {
+    res.sendStatus(400)
+  })
+})
+
+app.get('/top_artists/:time_range', (req, res) => {
+  const access_token = req.query.access_token
+
+  axios.get('https://api.spotify.com/v1/me/top/artists', {
+    headers: {
+      Authorization: `Bearer ${access_token}`
+    },
+    params: {
+      limit: 20,
+      time_range: req.params.time_range
+    }
+  }).then(data => {
+    res.json({
+      artists: data.data.items.map(artist => {
+        return {
+          artistId: artist.id,
+          artistUri: artist.uri,
+          artistName: artist.name,
+          artistGenres: artist.genres,
+          artistPicture: artist.images[artist.images.length - 1].url
         }
       })
     })

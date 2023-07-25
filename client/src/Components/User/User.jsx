@@ -4,6 +4,7 @@ import UserTopTracksComponent from '../Tracks/UserTopTracksComponent'
 
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import UserTopArtistsComponent from '../Artists/UserTopArtistsComponent'
 
 export default function User({accessToken, serverEndpoint}) {
   if (!accessToken) return
@@ -21,22 +22,22 @@ export default function User({accessToken, serverEndpoint}) {
   }, [])
 
   return (
-    <Container className="mt-5 d-flex flex-column align-items-center">
-      <UserProfileComponent
-        displayName={displayName}
-        profilePicture={profilePicture}
-      />
-      <Container className="d-flex">
+    <Container className="mt-3 mb-4 d-flex flex-column align-items-center">
+      <Container className="mb-2 d-flex flex-column justify-content-center align-items-center">
+        <UserProfileComponent
+          displayName={displayName}
+          profilePicture={profilePicture}
+        />
+      </Container>
+      <Container className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 gap-lg-5">
         <UserTopTracksComponent
           accessToken={accessToken}
           serverEndpoint={serverEndpoint}
-          userId={userId}
         />
-        {/* <UserTopTracksComponent
+        <UserTopArtistsComponent
           accessToken={accessToken}
           serverEndpoint={serverEndpoint}
-          userId={userId}
-        /> */}
+        />
       </Container>
     </Container>
   )
