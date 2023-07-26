@@ -31,7 +31,7 @@ export default function User({accessToken, serverEndpoint}) {
         />
       </Container>
       <hr className="my-4 w-100" />
-      <Container className="d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-center gap-3">
+      <Container className="d-flex flex-column align-items-center flex-md-row align-items-md-start justify-content-center gap-3">
         <UserTopTracksComponent
           accessToken={accessToken}
           serverEndpoint={serverEndpoint}

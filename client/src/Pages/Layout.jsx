@@ -3,8 +3,8 @@ import FriendsListComponent from '../Components/Friends/FriendsListComponent'
 
 export default function ProfilePage({accessToken, serverEndpoint}) {  
   return (
-    <div className="d-flex w-100" style={{height: "100vh", overflowY: "hidden"}}>
-      <div className="p-0 w-100" style={{overflowY: "auto"}}>
+    <div className="mb-5 d-flex w-100" style={{height: "100vh", overflowY: "hidden"}}>
+      <div className="w-100" style={{overflowY: "auto"}}>
         <User
           accessToken={accessToken}
           serverEndpoint={serverEndpoint}

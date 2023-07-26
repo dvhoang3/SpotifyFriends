@@ -5,8 +5,8 @@ export default function FriendsListComponent() {
   const {displayTab, setDisplayTab, windowWidth} = useWindowWidth(992)
 
   return (
-    <div className={`${windowWidth[1] < 992 ? "position-relative" : ""}`}>
-      <div className={`${windowWidth[1] < 992 ? "h-100 position-absolute end-0" : "h-100"}`}>
+    <div className={`${windowWidth < 992 ? "position-relative" : ""}`}>
+      <div className={`${windowWidth < 992 ? "h-100 position-absolute end-0" : "h-100"}`}>
         <div className="h-100 d-flex bg-light">
           <div className="border h-100 d-flex align-items-center justify-content-center" style={{width: "15px", cursor: "pointer"}} onClick={() => setDisplayTab(!displayTab)}>
             <div className="">||</div>

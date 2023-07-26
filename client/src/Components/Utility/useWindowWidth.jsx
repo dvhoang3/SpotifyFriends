@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react"
 
 export default function useWindowWidth(breakpoint) {
-  const [windowWidth, setWindowWidth] = useState([window.innerWidth, window.innerWidth])
+  const [previousWindowWidth, setPreviousWindowWidth] = useState(window.innerWidth)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [displayTab, setDisplayTab] = useState(false)
 
   useEffect(() => {
     const handleWindowResize = () => {
-      setWindowWidth((previousWidth) => [previousWidth[1], window.innerWidth])
+      setWindowWidth(window.innerWidth)
     }
 
     window.addEventListener('resize', handleWindowResize)
-    if (windowWidth[1] < breakpoint) setDisplayTab(false)
+    if (windowWidth < breakpoint) setDisplayTab(false)
     else setDisplayTab(true)
 
     return () => {
@@ -19,8 +20,10 @@ export default function useWindowWidth(breakpoint) {
   }, [])
 
   useEffect(() => {
-    if (windowWidth[0] >= breakpoint && windowWidth[1] < breakpoint) setDisplayTab(false)
-    else if (windowWidth[0] < breakpoint && windowWidth[1] >= breakpoint) setDisplayTab(true)
+    if (previousWindowWidth >= breakpoint && windowWidth < breakpoint) setDisplayTab(false)
+    else if (previousWindowWidth < breakpoint && windowWidth >= breakpoint) setDisplayTab(true)
+
+    setPreviousWindowWidth(windowWidth)
   }, [windowWidth])
 
   return {displayTab, setDisplayTab, windowWidth}

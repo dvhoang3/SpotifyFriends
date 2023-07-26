@@ -15,7 +15,7 @@ export default function UserTopTracksComponent({ accessToken, serverEndpoint }) 
   const [medTermLoading, setMedTermLoading] = useState(true)
   const [longTermLoading, setLongTermLoading] = useState(true)
   
-  const {displayTab, setDisplayTab} = useWindowWidth(768)
+  const {displayTab, setDisplayTab, windowWidth} = useWindowWidth(768)
 
   useEffect(() => {
     setShortTermLoading(true)
@@ -36,12 +36,12 @@ export default function UserTopTracksComponent({ accessToken, serverEndpoint }) 
   }, [])
 
   return (
-    <div className="d-flex flex-column align-items-center" style={{width: "400px", minWidth: "330px"}}>
-      <h5 className={`m-0 py-2 w-100 text-center ${displayTab ? "border-top border-start border-end" : "border"}`} style={{cursor: "pointer"}} onClick={() => setDisplayTab(!displayTab)}>
+    <div className="w-100 d-flex flex-column align-items-center" style={{maxWidth: "500px", minWidth: "350px"}}>
+      <h5 className={`m-0 py-2 w-100 text-center ${displayTab ? "border-top border-start border-end" : "border"}`} style={{cursor: windowWidth < 768 ? "pointer" : "auto", userSelect: "none"}} onClick={windowWidth < 768 ? () => setDisplayTab(!displayTab) : null}>
         Top Tracks
       </h5>
       <div className={`w-100 border-bottom border-start border-end ${displayTab ? "" : "d-none"}`}>
-        <Nav tabs justified className="my-1 border-bottom-0">
+        <Nav tabs justified className="my-1 border-bottom-0" style={{userSelect: "none"}}>
           <NavItem className={activeTab === 1 ? "py-1 border-top border-end" : "py-1 border-bottom"} onClick={() => setActiveTab(1)}>
             This Month
           </NavItem>
