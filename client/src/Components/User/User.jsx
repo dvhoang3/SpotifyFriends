@@ -23,7 +23,7 @@ export default function User({accessToken, serverEndpoint}) {
 
   return (
     <Container className="mt-3 mb-4 d-flex flex-column align-items-center">
-      <Container className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-md-3">
+      <Container className="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-md-3" style={{maxWidth: "50%"}}>
         <UserProfileComponent
           displayName={displayName}
           profilePicture={profilePicture}
@@ -31,7 +31,7 @@ export default function User({accessToken, serverEndpoint}) {
         />
       </Container>
       <hr className="my-4 w-100" />
-      <Container className="d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 gap-lg-5">
+      <Container className="d-flex flex-column flex-md-row align-items-center align-items-md-start justify-content-center gap-3">
         <UserTopTracksComponent
           accessToken={accessToken}
           serverEndpoint={serverEndpoint}

@@ -1,7 +1,5 @@
-import { Container } from "reactstrap";
-
 import Login from "./Components/Authentication/Login";
-import User from "./Components/User/User"
+import ProfilePage from "./Pages/Layout"
 
 import useAuth from "./Components/Authentication/useAuth";
 
@@ -15,9 +13,9 @@ export default function App() {
   const accessToken = useAuth(code, SERVER_ENDPOINT)
 
   return (
-    <Container style={{fontFamily: 'Impact, fantasy'}}>
-      {localStorage.getItem("refreshToken") ? <User accessToken={accessToken} serverEndpoint={SERVER_ENDPOINT}/> : <Login />}
-    </Container>
+    <div style={{fontFamily: 'Impact, fantasy'}}>
+      {localStorage.getItem("refreshToken") ? <ProfilePage accessToken={accessToken} serverEndpoint={SERVER_ENDPOINT}/> : <Login />}
+    </div>
   )
 }
 
