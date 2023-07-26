@@ -1,34 +1,18 @@
-import { useEffect, useState } from 'react'
-
-import { Nav, NavItem, TabContent, TabPane } from 'reactstrap'
-
-import axios from 'axios'
 import DisplayArtist from './DisplayArtist'
+import useWindowWidth from '../Utility/useWindowWidth'
+
+import { useEffect, useState } from 'react'
+import { Nav, NavItem, TabContent, TabPane } from 'reactstrap'
+import axios from 'axios'
 
 export default function UserTopArtistsComponent({ accessToken, serverEndpoint }) {
   const [activeTab, setActiveTab] = useState(1)
-  const [windowWidth, setWindowWidth] = useState([window.innerWidth, window.innerWidth])
-  const [displayTab, setDisplayTab] = useState(false)
 
   const [shortTermTops, setShortTermTops] = useState([])
   const [medTermTops, setMedTermTops] = useState([])
   const [longTermTops, setLongTermTops] = useState([])
 
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowWidth((previousWidth) => [previousWidth[1], window.innerWidth]);
-    };
-
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, []);
-  useEffect(() => {
-    if (windowWidth[0] >= 768 && windowWidth[1] < 768) setDisplayTab(false)
-    else if (windowWidth[0] < 768 && windowWidth[1] >= 768) setDisplayTab(true)
-  }, [windowWidth])
+  const {displayTab, setDisplayTab} = useWindowWidth(768)
 
   useEffect(() => {
     axios.get(`${serverEndpoint}/top_artists/short_term/?access_token=${accessToken}`).then(data => {

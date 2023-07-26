@@ -1,4 +1,4 @@
-import { Container, Button } from "reactstrap";
+import { Container, Button } from "reactstrap"
 
 const CLIENT_ID = "e2791fe6bc404cf39077a2c1f16c9abc"
 const REDIRECT_URL = "http://localhost:5173/"

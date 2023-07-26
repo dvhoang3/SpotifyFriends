@@ -1,10 +1,10 @@
-import { Container } from 'reactstrap'
 import UserProfileComponent from './UserProfileComponent'
 import UserTopTracksComponent from '../Tracks/UserTopTracksComponent'
+import UserTopArtistsComponent from '../Artists/UserTopArtistsComponent'
 
+import { Container } from 'reactstrap'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import UserTopArtistsComponent from '../Artists/UserTopArtistsComponent'
 
 export default function User({accessToken, serverEndpoint}) {
   if (!accessToken) return

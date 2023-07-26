@@ -1,7 +1,6 @@
-import Login from "./Components/Authentication/Login";
+import Login from "./Components/Login/Login"
 import ProfilePage from "./Pages/Layout"
-
-import useAuth from "./Components/Authentication/useAuth";
+import useAuth from "./Components/Utility/useAuth"
 
 const SERVER = 'http://localhost'
 const PORT = 3001
