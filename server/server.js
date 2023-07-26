@@ -86,7 +86,7 @@ app.get('/top_tracks/:time_range', (req, res) => {
       Authorization: `Bearer ${access_token}`
     },
     params: {
-      limit: 20,
+      limit: 50,
       time_range: req.params.time_range
     }
   }).then(data => {
@@ -115,7 +115,7 @@ app.get('/top_artists/:time_range', (req, res) => {
       Authorization: `Bearer ${access_token}`
     },
     params: {
-      limit: 20,
+      limit: 50,
       time_range: req.params.time_range
     }
   }).then(data => {

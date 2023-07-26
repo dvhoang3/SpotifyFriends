@@ -23,5 +23,5 @@ export default function useWindowWidth(breakpoint) {
     else if (windowWidth[0] < breakpoint && windowWidth[1] >= breakpoint) setDisplayTab(true)
   }, [windowWidth])
 
-  return {displayTab, setDisplayTab}
+  return {displayTab, setDisplayTab, windowWidth}
 }
