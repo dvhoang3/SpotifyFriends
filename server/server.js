@@ -75,9 +75,28 @@ app.get('/user', (req, res) => {
   }).catch(err => {
     res.sendStatus(400)
   })
-
 })
 
+app.get('/user/:user_id', (req, res) => {
+  const accessToken = req.query.access_token
+
+  axios.get(`https://api.spotify.com/v1/users/${req.params.user_id}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  }).then(data => {
+    res.json({
+      userId: data.data.id,
+      userUri: data.data.uri,
+      displayName: data.data.display_name,
+      displayPicture: data.data.images.filter(pic => pic.width === 300)[0].url
+    })
+  }).catch(err => {
+    res.sendStatus(400)
+  })
+})
+
+// gotta call tops with user
 app.get('/top_tracks/:time_range', (req, res) => {
   const access_token = req.query.access_token
 
@@ -131,6 +150,68 @@ app.get('/top_artists/:time_range', (req, res) => {
       })
     })
   }).catch(err => {
+    res.sendStatus(400)
+  })
+})
+
+app.get('/tracks/audio_features', (req, res) => {
+  const access_token = req.query.access_token
+  const tracks = req.query.tracks
+
+  if (!tracks) {
+    res.json({
+      acousticness: 0,
+      danceability: 0,
+      energy: 0,
+      instrumentalness: 0,
+      liveness: 0,
+      loudness: 0,
+      speechiness: 0,
+      valence: 0
+    })
+    return
+  }
+
+
+  axios.get(`https://api.spotify.com/v1/audio-features?ids=${tracks}`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`
+    }
+  }).then(data => {
+    const count = data.data.audio_features.length
+    const total = data.data.audio_features.reduce((acc, curr) => {
+      return {
+        acousticness: acc.acousticness + curr.acousticness,
+        danceability: acc.danceability + curr.danceability,
+        energy: acc.energy + curr.energy,
+        instrumentalness: acc.instrumentalness + curr.instrumentalness,
+        liveness: acc.liveness + curr.liveness,
+        loudness: acc.loudness + curr.loudness,
+        speechiness: acc.speechiness + curr.speechiness,
+        valence: acc.valence + curr.valence
+      }}, {
+      acousticness: 0,
+      danceability: 0,
+      energy: 0,
+      instrumentalness: 0,
+      liveness: 0,
+      loudness: 0,
+      speechiness: 0,
+      valence: 0
+    })
+
+    res.json({
+      acousticness: total.acousticness / count,
+      danceability: total.danceability / count,
+      energy: total.energy / count,
+      instrumentalness: total.instrumentalness / count,
+      liveness: total.liveness / count,
+      loudness: total.loudness / count / -60,
+      speechiness: total.speechiness / count,
+      valence: total.valence / count,
+    })
+  }).catch(err => {
+    console.log(err)
     res.sendStatus(400)
   })
 })
