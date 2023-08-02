@@ -3,6 +3,7 @@ import UserTopTracksComponent from '../Tracks/UserTopTracksComponent'
 import UserTopArtistsComponent from '../Artists/UserTopArtistsComponent'
 import getTopTracks from '../Tracks/getTopTracks'
 
+import { InfoCircle } from 'react-bootstrap-icons'
 import { Container } from 'reactstrap'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -14,7 +15,6 @@ import {
   Filler,
   Tooltip,
   Legend,
-  plugins,
 } from 'chart.js';
 import { Radar } from 'react-chartjs-2';
 
@@ -67,7 +67,12 @@ export default function User({accessToken, serverEndpoint, userId}) {
     scales: {
       r: {
           suggestedMin: 0,
-          suggestedMax: 1
+          suggestedMax: 1,
+          pointLabels: {
+            font: {
+              size: 14
+            }
+          }
       }
     },
     plugins: {
@@ -109,7 +114,12 @@ export default function User({accessToken, serverEndpoint, userId}) {
         />
       </Container>
       <Container className="py-5 d-flex flex-column align-items-center" style={{height: "80vh"}}>
-        <h5 className="text-center">Top Track Attributes</h5>
+        <div className="d-flex gap-1 align-items-center">
+          <h5 className="m-0">
+            Top Tracks' Audio Features
+          </h5>
+          <a className="text-muted" target="_blank" href="https://developer.spotify.com/documentation/web-api/reference/get-audio-features"><InfoCircle/></a>
+        </div>
         <Radar
           data={data}
           options={options}
